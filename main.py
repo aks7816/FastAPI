@@ -38,15 +38,16 @@ class LeadSchema(BaseModel):
 
 
 def send_email(subject, message, to_address):
-    # Your send_email logic, unchanged from before
-    from_address = 'ryan@smartbids.ai'
-    password = os.getenv("EMAIL_PASS")
+    from_address = 'aksheythac@gmail.com'
+    password = os.getenv("GMAIL_PASS")  # Ensure this environment variable is set with your Gmail app password
     msg = MIMEMultipart()
-    msg['From'] = "SmartBids.ai - Email verification <" + from_address + ">"
+    msg['From'] = "Your Name <" + from_address + ">"
     msg['To'] = to_address
     msg['Subject'] = subject
     msg.attach(MIMEText(message, 'html'))
-    server = smtplib.SMTP_SSL('mail.privateemail.com', 465)
+    
+    # Connect to Gmail SMTP server
+    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server.login(from_address, password)
     text = msg.as_string()
     server.sendmail(from_address, to_address, text)
